@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Dispaly it's own pid
+
+echo $$
