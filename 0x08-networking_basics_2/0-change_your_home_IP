@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
-#change the localhost
-cp /etc/hosts ~/hosts.new
+# Backup the original hosts file
+sudo cp /etc/hosts /etc/hosts.bak
+# Modify localhost entry in the hosts file
 sed -i 's/^127.0.0.1[[:space:]]\+localhost/127.0.0.2 localhost/' /etc/hosts
+# Modify facebook.com entry in the hosts file
 sed -i '/facebook.com/s/.*/8.8.8.8 facebook.com/' /etc/hosts
-sudo cp -f ~/hosts.new /etc/hosts
+# Display success message
+echo "Configuration complete!"
+# Prompt to revert changes after use
+read -p "Do you want to revert changes? (y/n): " choice
+if [ "$choice" == "y" ]; then
+    sudo cp /etc/hosts.bak /etc/hosts
+    echo "Reverted changes."
+fi
